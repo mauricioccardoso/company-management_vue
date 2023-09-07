@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  frontend-app:
+    build:
+      context: ./docker/frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend-app
+#    command: wait-for nginx:8080 -t 40 -- /usr/local/bin/start.sh
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/home/node/app
+#    depends_on:
+#      - nginx
+    networks:
+      - companiesapi
+
+networks:
+  companiesapi:
+    driver: bridge
