@@ -42,7 +42,6 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
             })
 
         if(respData?.code) {
-            setIsAuth(false);
             await clear();
             return;
         }
