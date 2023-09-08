@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import MainView from "@/views/MainView.vue";
 import AuthView from "@/views/AuthView.vue";
 import LoginForm from "@/components/AuthView/LoginForm.vue";
 
@@ -12,7 +12,7 @@ export const routes : ReadonlyArray<RouteRecordRaw> = [
             {
                 path: '/home',
                 name: 'home',
-                component: HomeView
+                component: MainView
             }
         ]
     },
