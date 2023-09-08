@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen flex flex-col justify-between h-full w-64 bg-app-bg-primary text-white p-9">
+  <section class="min-h-screen flex flex-col justify-between h-full w-64 bg-app-bg-primary text-white p-9">
     <div>
       <ConvictiLogo class="w-full" />
 
       <div class="h-full text-sm font-medium mt-16">
         <label>MENU</label>
 
-        <SideBarButton :path="{ name: 'login' }">
+        <SideBarButton :path="{ name: 'companies-map' }">
           <CompanyIcon class="mr-4" />
           Empresas
         </SideBarButton>
@@ -26,7 +26,7 @@
         Sair
       </SideBarButton>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

@@ -2,7 +2,7 @@
   <div class="flex min-h-screen bg-app-bg-secondary">
     <SideBar/>
 
-    <!-- RouterView -->
+    <RouterView />
   </div>
 </template>
 

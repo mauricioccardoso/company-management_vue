@@ -78,7 +78,7 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
         setIsAuth(true);
         setAuthData(respData);
         userDataStore.setUserData(respData?.user_logged);
-        await router.push({ name: 'home' });
+        await router.push({ name: 'companies-map' });
     }
 
     const makeLoginRequest = async (data)  => {

@@ -8,9 +8,9 @@ export async function configRoutesAuth (to , from, next) : Promise<void> {
     }
 
     if(to.meta.requiresAuth && !authDataStore.isAuth) {
-        next({ name: "auth" });
+        next({ name: 'auth' });
     } else if(to.meta.isGuest && authDataStore.isAuth) {
-        next({ name: "home" });
+        next({ name: 'companies-map' });
     } else {
         next();
     }

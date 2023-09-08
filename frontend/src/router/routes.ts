@@ -2,17 +2,19 @@ import type { RouteRecordRaw } from "vue-router";
 import MainView from "@/views/MainView.vue";
 import AuthView from "@/views/AuthView.vue";
 import LoginForm from "@/components/AuthView/LoginForm.vue";
+import CompaniesMapView from "@/views/MainView/CompaniesMapView.vue";
 
 export const routes : ReadonlyArray<RouteRecordRaw> = [
     {
         path: '/',
-        redirect: 'home',
+        redirect: 'companies-map',
+        component: MainView,
         meta: { requiresAuth: true },
         children: [
             {
-                path: '/home',
-                name: 'home',
-                component: MainView
+                path: '/companies-map',
+                name: 'companies-map',
+                component: CompaniesMapView
             }
         ]
     },
