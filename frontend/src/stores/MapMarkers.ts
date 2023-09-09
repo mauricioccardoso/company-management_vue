@@ -87,9 +87,13 @@ export const useMapMarkersDataStore = defineStore('mapMarkersDataStore', () => {
         configAlreadySet = true;
     }
 
+    const resetConfigs = (): void => {
+        configAlreadySet = false;
+    }
+
     const clear = () : void => {
         vectorSource.refresh();
     }
 
-    return { buildMarkers }
+    return { buildMarkers, resetConfigs }
 })

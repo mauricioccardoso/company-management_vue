@@ -10,7 +10,7 @@ import OSM from "ol/source/OSM";
 import View from "ol/View";
 import { fromLonLat } from "ol/proj";
 
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useCompaniesDataStore } from "@/stores/CompaniesDataStore";
 import { useMapMarkersDataStore } from "@/stores/MapMarkers";
 
@@ -30,10 +30,14 @@ onMounted(() => {
       }),
     ],
     view: new View({
-      center: fromLonLat([-55.00000, -15.00000]),
+      center: fromLonLat([-55.00000, -14.00000]),
       zoom: 5,
     }),
   });
+});
+
+onUnmounted(() => {
+  mapMarkersDataStore.resetConfigs();
 });
 
 watch(companiesDataStore.companies, () => {
