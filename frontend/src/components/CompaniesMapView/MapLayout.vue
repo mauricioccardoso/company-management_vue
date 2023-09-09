@@ -1,6 +1,6 @@
 <template>
   <main class="w-full bg-blue-200 mt-5 rounded-lg overflow-hidden">
-    <MapMain />
+    <MapMain/>
   </main>
 </template>
 
