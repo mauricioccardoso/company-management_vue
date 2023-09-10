@@ -14,7 +14,9 @@
     </label>
 
     <!-- Add Company Button -->
-    <button class="flex items-center bg-app-bg-primary-light text-app-label-primary hover:bg-blue-200 py-3 px-4 rounded-full sm:rounded-md text-sm">
+    <button
+        @click="formCreateCompanyStore.setIsFormOpen(true)"
+        class="flex items-center bg-app-bg-primary-light text-app-label-primary hover:bg-blue-200 py-3 px-4 rounded-full sm:rounded-md text-sm">
       <span class="mr-3 hidden sm:block">Adicionar Empresa</span>
       <PlusIcon/>
     </button>
@@ -23,7 +25,9 @@
 </template>
 
 <script setup lang="ts">
-
 import SearchIcon from "@/components/Icons/SearchIcon.vue";
 import PlusIcon from "@/components/Icons/PlusIcon.vue";
+import { useFormCreateCompanyStore } from "@/stores/FormCreateCompany";
+
+const formCreateCompanyStore = useFormCreateCompanyStore();
 </script>
