@@ -10,8 +10,11 @@ import { fromLonLat } from "ol/proj";
 
 import MarkerIcon from '@/components/img/marker.svg';
 import MarkerIconSecondary from '@/components/img/marker-secondary.svg';
+import { useCompaniesDataStore } from "@/stores/CompaniesDataStore";
 
 export const useMapMarkersDataStore = defineStore('mapMarkersDataStore', () => {
+    const companiesDataStore = useCompaniesDataStore();
+
     let configAlreadySet : boolean = false;
 
     // Markers Builds Configs
@@ -74,14 +77,15 @@ export const useMapMarkersDataStore = defineStore('mapMarkersDataStore', () => {
 
         map.value.on('click', function (evt) : void {
             if(!map.value.hasFeatureAtPixel(evt.pixel)) {
+                companiesDataStore.clearSelectedCompany();
                 return;
             }
 
-            const feature = map.value.forEachFeatureAtPixel(evt.pixel, function (feature) {
+            const feature = map.value.forEachFeatureAtPixel(evt.pixel, (feature) => {
                 return feature;
             });
 
-            console.log(feature.values_, 'Make Card - Show Company Info');
+            companiesDataStore.showSelectedCompany(feature.values_);
         });
 
         configAlreadySet = true;

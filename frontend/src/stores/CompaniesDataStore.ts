@@ -6,14 +6,18 @@ import type { AxiosError, AxiosResponse } from "axios";
 
 
 export const useCompaniesDataStore = defineStore('companiesDataStore', () => {
-    const companies : Ref<ICompaniesData[]> = ref([])
+    const companies : Ref<ICompaniesData[]> = ref([]);
+
+    const companySelectedData : Ref<ICompaniesData> = ref({});
+    const openCardCompanyInfo : Ref<boolean> = ref(false);
+
 
     const getCompanies = async () => {
-        const respData = await httpClient.get('/companies')
+        const respData : any = await httpClient.get('/companies')
             .then(({ data } : AxiosResponse) => {
-                return data
+                return data;
             }).catch((error : AxiosError) => {
-                return error
+                return error;
             });
 
         if(!respData?.data) {
@@ -47,5 +51,15 @@ export const useCompaniesDataStore = defineStore('companiesDataStore', () => {
         }
     }
 
-    return { companies, getCompanies }
+    const showSelectedCompany = (companyData: ICompaniesData) : void => {
+        companySelectedData.value = companyData;
+        openCardCompanyInfo.value = true;
+    }
+
+    const clearSelectedCompany = () : void => {
+        delete companySelectedData.value;
+        openCardCompanyInfo.value = false;
+    }
+
+    return { companies, companySelectedData, openCardCompanyInfo, getCompanies, showSelectedCompany, clearSelectedCompany }
 });

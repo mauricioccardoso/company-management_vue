@@ -7,7 +7,7 @@
         <label>MENU</label>
 
         <SideBarButton :path="{ name: 'companies-map' }">
-          <CompanyIcon class="mr-4" />
+          <CompanyIcon class="text-lg mr-4" />
           Empresas
         </SideBarButton>
 
@@ -33,8 +33,8 @@
 import CompanyIcon from "@/components/Icons/CompanyIcon.vue";
 import LogoutIcon from "@/components/Icons/LogoutIcon.vue";
 import SideBarButton from "@/components/MainView/SideBarButton.vue";
-import {useAuthDataStore} from "@/stores/AuthDataStore";
 import ConvictiLogo from "@/components/img/ConvictiLogo.vue";
+import {useAuthDataStore} from "@/stores/AuthDataStore";
 
 const authDataStore = useAuthDataStore();
 </script>

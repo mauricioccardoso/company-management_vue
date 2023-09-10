@@ -1,3 +1,3 @@
 <template>
-  <i class="fi inline-flex text-lg fi-rr-sparkles"></i>
+  <i class="fi inline-flex fi-rr-sparkles"></i>
 </template>
