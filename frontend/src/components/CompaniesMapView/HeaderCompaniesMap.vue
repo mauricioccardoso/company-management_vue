@@ -1,6 +1,15 @@
 <template>
   <header class="flex justify-between">
 
+    <!-- Open Sidebar Button -->
+    <button
+        @click="sidebarControllerStore.setIsSidebarOpen(true)"
+        type="button"
+        class="sm:hidden flex items-center py-3 px-4 bg-gray-300 hover:bg-gray-400 rounded-lg mr-2 text-white"
+    >
+      <MenuIcon class="text-lg"/>
+    </button>
+
     <!-- Search Input -->
     <label class="relative block sm:w-2/5 w-full mr-2 md:mr-0 font-semibold">
       <span class="sr-only">Search</span>
@@ -27,7 +36,10 @@
 <script setup lang="ts">
 import SearchIcon from "@/components/Icons/SearchIcon.vue";
 import PlusIcon from "@/components/Icons/PlusIcon.vue";
+import MenuIcon from "@/components/Icons/MenuIcon.vue";
 import { useFormCreateCompanyStore } from "@/stores/FormCreateCompanyStore";
+import { useSidebarControllerStore } from "@/stores/SidebarControllerStore";
 
 const formCreateCompanyStore = useFormCreateCompanyStore();
+const sidebarControllerStore = useSidebarControllerStore();
 </script>

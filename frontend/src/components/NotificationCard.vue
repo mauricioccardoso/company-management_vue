@@ -1,7 +1,7 @@
 <template>
-  <div class="absolute z-30 top-4 right-4">
-    <div class=" bg-neutral-50 shadow-lg rounded-md p-4 animate animate-opacity duration-1000">
-      <div class="flex content-start">
+  <div class="absolute z-50 top-0 right-0 sm:top-4 sm:right-4 w-full sm:w-fit">
+    <div class=" bg-neutral-50 shadow-xl rounded-b-lg sm:rounded-md p-4">
+      <div class="flex justify-between">
 
         <div class="p-1">
           <SuccessIcon v-if="notificationStore.notification?.type === 'success'"/>
