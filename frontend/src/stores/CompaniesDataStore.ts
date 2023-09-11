@@ -3,9 +3,11 @@ import { type Ref, ref } from "vue";
 import type { ICompaniesData } from "@/interfaces/ICompaniesData";
 import httpClient from "@/http";
 import type { AxiosError, AxiosResponse } from "axios";
+import { useNotificationStore } from "@/stores/NotificationStore";
 
 
 export const useCompaniesDataStore = defineStore('companiesDataStore', () => {
+    const notificationStore = useNotificationStore();
     const companies : Ref<ICompaniesData[]> = ref([]);
 
     const companySelectedData : Ref<ICompaniesData> = ref({});
@@ -21,7 +23,7 @@ export const useCompaniesDataStore = defineStore('companiesDataStore', () => {
             });
 
         if(!respData?.data) {
-            console.log('Make List Companies Error Alert');
+            notificationStore.showNotification("Falha ao carregar as informações das empresas!", 'error');
             return;
         }
 

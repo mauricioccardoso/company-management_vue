@@ -6,12 +6,14 @@ import { type Ref, ref } from "vue";
 import type { IAuthData } from "@/interfaces/IAuthData";
 import { useUserDataStore } from "@/stores/UserDataStore";
 import { type Router, useRouter } from "vue-router";
+import { useNotificationStore } from "@/stores/NotificationStore";
 
 
 
 export const useAuthDataStore = defineStore('authDataStore', () => {
     const router : Router = useRouter();
     const userDataStore = useUserDataStore();
+    const notificationStore = useNotificationStore();
 
     const authData : Ref<IAuthData> = ref({});
     const isAuth = ref(false);
@@ -42,7 +44,7 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
             })
 
         if(respData?.code) {
-            await clear();
+            notificationStore.showNotification("Sessão expirada. Faça login novamente!", 'error');
             return;
         }
 
@@ -66,12 +68,12 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
         const respData = await makeLoginRequest(data);
 
         if(respData?.code) {
-            console.log("Make alert - System unavailable");
+            notificationStore.showNotification("Sistema Indisponível. Por favor, tente novamente mais tarde!", 'error');
             return;
         }
 
         if(respData?.message) {
-            console.log("Make alert - Credential wrong");
+            notificationStore.showNotification("Email e/ou senha inválidos", 'error');
             return;
         }
 

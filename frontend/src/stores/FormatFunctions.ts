@@ -53,6 +53,9 @@ export const useFormatFunctionsStore = defineStore('formatFunctionsStore', () =>
     }
 
     const getWhatsNumbers = (value) =>{
+        if(value === '') {
+            return
+        }
         return value.match(/\d+/g).join('')
     }
 

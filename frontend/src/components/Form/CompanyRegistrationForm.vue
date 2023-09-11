@@ -66,6 +66,7 @@
             @inputValue="(value) => formData.representantive_user = value"
             inputName="companyRepresentantive"
             class="col-span-2"
+            :inputAttr="{required: true}"
         />
 
         <FormInput
@@ -128,11 +129,11 @@ import FormButton from "@/components/Form/FormButton.vue";
 
 import { useFormCreateCompanyStore } from "@/stores/FormCreateCompanyStore";
 import { useFormatFunctionsStore } from "@/stores/FormatFunctions";
-import { useCompaniesDataStore } from "@/stores/CompaniesDataStore";
+import { useNotificationStore } from "@/stores/NotificationStore";
 
 const formCreateCompanyStore = useFormCreateCompanyStore();
 const formatFunctionsStore = useFormatFunctionsStore();
-const companiesDataStore = useCompaniesDataStore();
+const notificationStore = useNotificationStore();
 
 formCreateCompanyStore.getStates();
 formCreateCompanyStore.getCategories();
@@ -148,9 +149,14 @@ const cancelCreate = () => {
 }
 
 const saveCompany = () => {
+  const validate = formCreateCompanyStore.validateCompanyData(formData.value);
+
+  if(validate.length > 0) {
+    notificationStore.showNotification(validate, 'error');
+    return;
+  }
+
   formCreateCompanyStore.createCompany(formData.value);
-  formCreateCompanyStore.setIsFormOpen(false)
-  companiesDataStore.getCompanies();
 }
 
 </script>
