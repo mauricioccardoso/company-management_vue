@@ -112,6 +112,7 @@
       <FormButton
           label="Cadastrar Empresa"
           type="submit"
+          :isLoading="formCreateCompanyStore.onMakeCreateRequest"
           class="text-white bg-app-label-primary"
           customClasses="hover:outline hover:outline-2 hover:outline-offset-2 hover:outline-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
       />

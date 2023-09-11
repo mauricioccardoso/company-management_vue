@@ -17,6 +17,7 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
 
     const authData : Ref<IAuthData> = ref({});
     const isAuth = ref(false);
+    const onMakeLoginRequest = ref(false);
 
     if(sessionStorage.getItem("ACCESS_TOKEN")) {
         authData.value.access_token = sessionStorage.getItem("ACCESS_TOKEN");
@@ -84,6 +85,8 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
     }
 
     const makeLoginRequest = async (data)  => {
+        onMakeLoginRequest.value = true;
+
         httpClient.interceptors.request.clear();
 
         return await httpClient.post('/auth/login', data)
@@ -92,8 +95,10 @@ export const useAuthDataStore = defineStore('authDataStore', () => {
             })
             .catch((error : AxiosError) => {
                 return error
+            }).finally(() => {
+                onMakeLoginRequest.value = false;
             });
     }
 
-    return { authData, isAuth, setIsAuth, checkToken, login, clear }
+    return { authData, isAuth, onMakeLoginRequest, setIsAuth, checkToken, login, clear }
 })

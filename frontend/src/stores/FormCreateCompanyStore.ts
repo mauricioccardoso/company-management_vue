@@ -10,6 +10,7 @@ export const useFormCreateCompanyStore = defineStore('formCreateCompanyStore', (
     const notificationStore = useNotificationStore();
 
     const isFormOpen : Ref<boolean> = ref(false);
+    const onMakeCreateRequest = ref(false);
 
     const categories : Ref<[]> = ref([]);
     const states : Ref<[]> = ref([]);
@@ -64,12 +65,16 @@ export const useFormCreateCompanyStore = defineStore('formCreateCompanyStore', (
     }
 
     const createCompany = async (data) => {
+        onMakeCreateRequest.value = true
+
         const respData :any = await httpClient.post('/companies', data)
             .then(({ data }) => {
                 return data
 
             }).catch((error) => {
                 return error
+            }).finally(() => {
+                onMakeCreateRequest.value = false;
             });
 
         if(respData?.code) {
@@ -137,5 +142,5 @@ export const useFormCreateCompanyStore = defineStore('formCreateCompanyStore', (
             });
     }
 
-    return { isFormOpen, categories, states, cities, setIsFormOpen, getCategories, getStates, getCities, createCompany, validateCompanyData }
+    return { isFormOpen, categories, states, cities, onMakeCreateRequest, setIsFormOpen, getCategories, getStates, getCities, createCompany, validateCompanyData }
 })

@@ -1,20 +1,26 @@
 <template>
   <button
+      :disabled="isLoading"
       @click="cbFunction"
       :class="computedClasses"
       :type="type"
-      class="w-60 mt-3 text-sm sm:text-base px-4 py-2 rounded-md md:py-3">
-    {{ label }}
+      class="flex justify-center w-60 mt-3 text-sm sm:text-base px-4 py-2 rounded-md md:py-3">
+    <span v-if="!isLoading">
+      {{ label }}
+    </span>
+    <SpinnerIcon v-else/>
   </button>
 </template>
 
 <script setup lang="ts">
 
 import { computed } from "vue";
+import SpinnerIcon from "@/components/Icons/SpinnerIcon.vue";
 
 const props = defineProps<{
   label : string
   type: string
+  isLoading?: boolean
   customClasses? : string
   cbFunction? : Function
 }>()

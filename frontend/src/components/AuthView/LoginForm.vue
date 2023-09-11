@@ -20,9 +20,13 @@
 
     <div class="mt-6">
       <button
+          :disabled="authDataStore.onMakeLoginRequest"
+          :class="{ 'cursor-progress': authDataStore.onMakeLoginRequest}"
           type="submit"
           class="flex w-full justify-center rounded-md bg-app-label-secondary px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-        Entrar
+        <span v-if="!authDataStore.onMakeLoginRequest">Entrar</span>
+        <SpinnerIcon v-else />
+
       </button>
     </div>
   </form>
@@ -31,6 +35,7 @@
 <script setup lang="ts">
 import { useAuthDataStore } from "@/stores/AuthDataStore";
 import { ref } from "vue";
+import SpinnerIcon from "@/components/Icons/SpinnerIcon.vue";
 
 const authDataStore = useAuthDataStore();
 
