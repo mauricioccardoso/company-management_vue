@@ -20,11 +20,12 @@
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   label: string
   inputName: string
   inputType?: string
   inputAttr ?: object
+  cbFunction? : Function
 }>()
 
 const emits = defineEmits(['inputValue']);
@@ -32,6 +33,9 @@ const emits = defineEmits(['inputValue']);
 const value = ref('');
 
 const changeValue = () => {
+  if(props.cbFunction) {
+    props.cbFunction(value);
+  }
   emits('inputValue', value.value);
 }
 

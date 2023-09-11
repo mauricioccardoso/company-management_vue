@@ -27,11 +27,11 @@
 
         <FormInput
             label="CNPJ"
-            @inputValue="(value) => formData.cnpj = value.toString()"
+            @inputValue="(value) => formData.cnpj = formatFunctionsStore.getCNPJNumbers(value)"
             inputName="companyCnpj"
             :inputAttr="{required: true}"
             class="col-span-2"
-            inputType="number"
+            :cbFunction="formatFunctionsStore.formatCNPJ"
         />
 
         <FormSelectInput
@@ -54,11 +54,11 @@
 
         <FormInput
             label="Whatsapp"
-            @inputValue="(value) => formData.whatsapp_phone = value.toString()"
+            @inputValue="(value) => formData.whatsapp_phone = formatFunctionsStore.getWhatsNumbers(value)"
             inputName="companyWhatsapp"
             :inputAttr="{required: true}"
             class="col-span-2"
-            inputType="number"
+            :cbFunction="formatFunctionsStore.formatWhatsapp"
         />
 
         <FormInput
@@ -70,18 +70,18 @@
 
         <FormInput
             label="Latitude"
-            @inputValue="(value) => formData.latitude = value"
+            @inputValue="(value) => formData.latitude = parseFloat(value)"
             inputName="companyLatitude"
             :inputAttr="{required: true}"
-            inputType="number"
+            :cbFunction="formatFunctionsStore.formatCoordenate"
         />
 
         <FormInput
             label="Longitude"
-            @inputValue="(value) => formData.longitude = value"
+            @inputValue="(value) => formData.longitude = parseFloat(value)"
             inputName="companyLongitude"
             :inputAttr="{required: true}"
-            inputType="number"
+            :cbFunction="formatFunctionsStore.formatCoordenate"
         />
 
         <FormSelectInput
@@ -127,7 +127,12 @@ import FormInput from "@/components/Form/FormInput.vue";
 import FormButton from "@/components/Form/FormButton.vue";
 
 import { useFormCreateCompanyStore } from "@/stores/FormCreateCompanyStore";
+import { useFormatFunctionsStore } from "@/stores/FormatFunctions";
+import { useCompaniesDataStore } from "@/stores/CompaniesDataStore";
+
 const formCreateCompanyStore = useFormCreateCompanyStore();
+const formatFunctionsStore = useFormatFunctionsStore();
+const companiesDataStore = useCompaniesDataStore();
 
 formCreateCompanyStore.getStates();
 formCreateCompanyStore.getCategories();
@@ -144,8 +149,8 @@ const cancelCreate = () => {
 
 const saveCompany = () => {
   formCreateCompanyStore.createCompany(formData.value);
-  console.log('Save Company', formData.value);
   formCreateCompanyStore.setIsFormOpen(false)
+  companiesDataStore.getCompanies();
 }
 
 </script>
