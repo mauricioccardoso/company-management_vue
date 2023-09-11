@@ -1,10 +1,10 @@
 # company-management_vue
 
-# Sistema de Gerênciamento de Empresas
+# Sistema de Gerênciamento de Empresas com OpenLayers
 
 ### Tecnologias Utilizadas
 
-- [VUE 3](https://vuejs.org/)
+- [Vue 3](https://vuejs.org/)
 - [Vue Router](https://router.vuejs.org/)
 - [Pinia](https://pinia.vuejs.org/)
 - [Docker e Docker Compose](https://www.docker.com/)
@@ -25,16 +25,16 @@
 1. Fazer a cópia do projeto para sua máquina
 
 ```bash
-git clone https://github.com/mauricioccardoso/address-management_laravel-vue.git
+git clone https://github.com/mauricioccardoso/company-management_vue.git
 ```
 
-1.1. Caso tenha o Docker e Docker compose configurado na sua máquina, siga para [Docker e Docker Compose](#configuração-com-docker-e-docker-compose).
-Caso não tenha docker, continue para a coniguração do backend e frontend abaixo.
+1.1 Caso tenha o Docker e Docker compose configurado na sua máquina, siga para [Docker e Docker Compose](#configuração-com-docker-e-docker-compose).
+Caso não tenha docker, continue para a coniguração abaixo.
 
-2. Retorne a pasta raiz e entre na pasta do frontend
+2. Acesse a pasta raiz do projeto e entre na pasta do frontend
 
 ```bash
-cd ../frontend
+cd company-management_vue
 ```
 
 3. Faça a instalação das dependências
@@ -56,7 +56,7 @@ const httpClient: AxiosInstance = axios.create({
 })
 ```
 
-5. Utilize o comando abaixo para inicia o projeto frontend
+5. Utilize o comando abaixo para inicia o servidor do projeto frontend
 
 ```bash
 yarn dev
@@ -84,3 +84,10 @@ docker compose up -d
 
 Frontend - Aplicação
 [http://localhost:5173/](http://localhost:5173/)
+
+## Informações
+
+- Para este projeto foi fornecido uma api separa do projeto principal. Subir o projeto ou containers do projeto da api, antes de levantar o container do projeto frontend.
+- O projeto frotend ja contém todos os scripts e setup para subir o container, instalar dependências e subir o servidor do projeto frontend.
+- O arquivo do docker compose, cria uma rede igual ao utilizado pela api. Em caso de alteração da rede da api é nescessário mudar a rede do projeto frontend.
+- No formulário de criação de empresa, o enuciado informa que o 'representante' não é um campo obrigatório, porém a api tem o 'representante' como campo obrigatório. 
