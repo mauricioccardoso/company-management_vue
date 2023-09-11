@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import SearchIcon from "@/components/Icons/SearchIcon.vue";
 import PlusIcon from "@/components/Icons/PlusIcon.vue";
-import { useFormCreateCompanyStore } from "@/stores/FormCreateCompany";
+import { useFormCreateCompanyStore } from "@/stores/FormCreateCompanyStore";
 
 const formCreateCompanyStore = useFormCreateCompanyStore();
 </script>

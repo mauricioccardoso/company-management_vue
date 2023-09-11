@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onUnmounted, ref } from "vue";
 
 defineProps<{
   label: string
@@ -34,6 +34,10 @@ const value = ref('');
 const changeValue = () => {
   emits('inputValue', value.value);
 }
+
+onUnmounted(() => {
+  value.value = '';
+})
 </script>
 
 <style scoped>

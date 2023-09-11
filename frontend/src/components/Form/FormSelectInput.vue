@@ -12,7 +12,7 @@
             :class="{'text-gray-400': selected.id === 0}"
             class="ml-2 mr-3 block truncate">
 
-          {{ selected.text }}
+          {{ selected.title }}
 
         </span>
         <ArrowDownIcon/>
@@ -21,21 +21,28 @@
 
       <!-- Options List -->
       <ul
-          @mouseleave="isActive=false"
+
           v-if="isActive"
           role="listbox"
-          class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          class="absolute z-10 mt-1 max-h-56 w-full overflow-auto overflow-x-hidden rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
       >
+
+        <li
+            v-if="optionsData.length <= 0"
+            role="option"
+            class="text-app-label-primary relative cursor-default select-none py-1.5 pl-4 pr-9 hover:bg-gray-200">
+          <span class="block"> {{ noItemsMsg ?? 'Carregando...' }} </span>
+        </li>
 
         <!-- Options Itens -->
         <li
             v-for="item in optionsData" :key="item.id"
-            @click="selectItem(item.id, item.text)"
+            @click="selectItem(item.id, item.title)"
             role="option"
             class="text-app-label-primary relative cursor-default select-none py-1.5 pl-4 pr-9 hover:bg-gray-200">
           <div class="flex items-center">
 
-            <span class="block">{{ item.text }}</span>
+            <span class="block">{{ item.title }}</span>
 
           </div>
         </li>
@@ -43,15 +50,15 @@
       </ul>
     </div>
   </div>
-
 </template>
 <script setup lang="ts">
 import ArrowDownIcon from "@/components/Icons/ArrowDownIcon.vue";
-import { ref } from "vue";
+import { onUnmounted, ref, watch } from "vue";
 
-defineProps<{
+const props = defineProps<{
   label : string
-  optionsData: object
+  optionsData : Array<object>
+  noItemsMsg? : string
 }>();
 
 const emits = defineEmits(['optionSelected']);
@@ -60,12 +67,22 @@ const isActive = ref(false);
 
 const selected = ref({
   id: 0,
-  text: 'Selecionar'
+  title: 'Selecionar'
 });
 
-const selectItem = (id, text) => {
+const selectItem = (id, title) => {
   selected.value.id = id;
-  selected.value.text = text;
+  selected.value.title = title;
   emits('optionSelected', selected.value.id);
 }
+
+watch(() => props.optionsData.length, () => {
+  selected.value.id = 0;
+  selected.value.title = 'Selecionar';
+})
+
+onUnmounted(() => {
+  selected.value.id = 0;
+  selected.value.title = 'Selecionar';
+})
 </script>

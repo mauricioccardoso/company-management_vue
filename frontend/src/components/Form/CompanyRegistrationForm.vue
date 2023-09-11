@@ -27,15 +27,16 @@
 
         <FormInput
             label="CNPJ"
-            @inputValue="(value) => formData.cnpj = value"
+            @inputValue="(value) => formData.cnpj = value.toString()"
             inputName="companyCnpj"
             :inputAttr="{required: true}"
             class="col-span-2"
+            inputType="number"
         />
 
         <FormSelectInput
             label="Categoria"
-            :optionsData="arr"
+            :optionsData="formCreateCompanyStore.categories"
             @optionSelected="(value) => formData.category_id = value"
             class="col-span-2"
         />
@@ -53,10 +54,11 @@
 
         <FormInput
             label="Whatsapp"
-            @inputValue="(value) => formData.whatsapp_phone = value"
+            @inputValue="(value) => formData.whatsapp_phone = value.toString()"
             inputName="companyWhatsapp"
             :inputAttr="{required: true}"
             class="col-span-2"
+            inputType="number"
         />
 
         <FormInput
@@ -85,13 +87,14 @@
         <FormSelectInput
             label="Estado"
             @optionSelected="(value) => formData.state_id = value"
-            :optionsData="arr"
+            :optionsData="formCreateCompanyStore.states"
         />
 
         <FormSelectInput
             label="Cidade"
             @optionSelected="(value) => formData.city_id = value"
-            :optionsData="arr"
+            noItemsMsg="Selecione um Estado primeiro"
+            :optionsData="formCreateCompanyStore.cities"
         />
 
       </div>
@@ -100,7 +103,7 @@
     <!-- Buttons -->
     <div class="flex justify-center mt-4">
       <FormButton
-          @click="formCreateCompanyStore.setIsFormOpen(false)"
+          @click="cancelCreate"
           label="Cancelar"
           type="button"
           class="bg-gray-200 text-app-label-primary mr-5"
@@ -117,33 +120,32 @@
 </template>
 
 <script setup lang="ts">
-import { type Ref, ref } from "vue";
+import { type Ref, ref, watch } from "vue";
 import type { IRequestCreateCompany } from "@/interfaces/IRequestCreateCompany";
 import FormSelectInput from "@/components/Form/FormSelectInput.vue";
 import FormInput from "@/components/Form/FormInput.vue";
 import FormButton from "@/components/Form/FormButton.vue";
 
-import { useFormCreateCompanyStore } from "@/stores/FormCreateCompany";
+import { useFormCreateCompanyStore } from "@/stores/FormCreateCompanyStore";
 const formCreateCompanyStore = useFormCreateCompanyStore();
+
+formCreateCompanyStore.getStates();
+formCreateCompanyStore.getCategories();
 
 const formData : Ref<IRequestCreateCompany> = ref({});
 
-const saveCompany = () => {
-  console.log('Save Company', formData.value);
+watch(() => formData.value.state_id, () => {
+  formCreateCompanyStore.getCities(formData.value.state_id);
+});
+
+const cancelCreate = () => {
+  formCreateCompanyStore.setIsFormOpen(false)
 }
 
-const arr = [
-  {
-    id: 1,
-    text: 'Option 1'
-  },
-  {
-    id: 2,
-    text: 'Option 2'
-  },
-  {
-    id: 3,
-    text: 'Option 3'
-  }
-];
+const saveCompany = () => {
+  formCreateCompanyStore.createCompany(formData.value);
+  console.log('Save Company', formData.value);
+  formCreateCompanyStore.setIsFormOpen(false)
+}
+
 </script>
